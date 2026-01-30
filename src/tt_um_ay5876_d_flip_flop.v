@@ -1,6 +1,4 @@
 `default_nettype none
-// tt_um_ay5876_d_flip_flop.v
-// TinyTapeout user module: D Flip-Flop (posedge clk, async active-low reset)
 
 module tt_um_ay5876_d_flip_flop (
     input  wire [7:0] ui_in,
@@ -21,15 +19,12 @@ module tt_um_ay5876_d_flip_flop (
         else        q <= din;
     end
 
-    assign uo_out[0]   = q;
-    assign uo_out[1]   = ~q;
-    assign uo_out[7:2] = 6'b0;
+    assign uo_out[0] = q;
+    assign uo_out[7:1] = 7'b0;
 
     assign uio_out = 8'b0;
     assign uio_oe  = 8'b0;
 
-    wire _unused = &{1'b0, uio_in, ena, ui_in[7:1]};
+    wire _unused = &{ena, ui_in[7:1], uio_in, 1'b0};
 
 endmodule
-
-`default_nettype wire
