@@ -6,7 +6,7 @@ from cocotb.triggers import ClockCycles
 async def test_project(dut):
     dut._log.info("Start")
 
-    # Set the clock period to 10 us (100 KHz) — manual style
+    # Set the clock period to 10 us (100 KHz)
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
 
@@ -28,13 +28,11 @@ async def test_project(dut):
     # Wait for some clock cycles to see the output values
     await ClockCycles(dut.clk, 20)
 
-    # OPTIONAL assertion (manual shows an example)
-    # NOTE: In this toolchain, don't use uo_out[0] indexing; mask bit0 instead:
-    # assert (int(dut.uo_out.value) & 1) == 0
+    # Manual shows an example assert; THIS version works in your toolchain:
+    assert (int(dut.uo_out.value) & 1) == 0
 
     # Keep testing the module by changing the input values, waiting for
     # one or more clock cycles, and asserting the expected output values.
-
     dut.rst_n.value = 0
     await ClockCycles(dut.clk, 10)
 
